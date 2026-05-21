@@ -1,7 +1,11 @@
-using UnityEngine;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using Unity.XR.CoreUtils;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.Interaction.Toolkit;
 public class GameManagerGame : MonoBehaviour
 {
     [SerializeField] List<Cube> topos = new List<Cube>();
@@ -12,7 +16,7 @@ public class GameManagerGame : MonoBehaviour
     [SerializeField] TMP_Text textForTimer;
     [SerializeField] TMP_Text textForScore;
     float score;
-    [SerializeField]float maxScore = 100;
+    [SerializeField] float maxScore = 100;
     public static GameManagerGame instance;
     private void Awake()
     {
@@ -20,7 +24,7 @@ public class GameManagerGame : MonoBehaviour
         {
             instance = this;
         }
-        else 
+        else
         {
             Destroy(this);
         }
@@ -49,6 +53,16 @@ public class GameManagerGame : MonoBehaviour
             {
                 juegoActivo = false;
             }
+            if (score >= maxScore || timer >= MaxTime)
+            {
+                ARSession aRSession = FindFirstObjectByType<ARSession>();
+                XROrigin player = FindFirstObjectByType<XROrigin>();
+                DontDestroyOnLoad(aRSession);
+                DontDestroyOnLoad(player);
+                XRInteractionManager xRInteractionManager = FindFirstObjectByType<XRInteractionManager>();
+                DontDestroyOnLoad(xRInteractionManager);
+                SceneManager.LoadScene(0);
+            }
         }
     }
     internal void AddToTheListOfTopos(Cube c)
@@ -64,20 +78,15 @@ public class GameManagerGame : MonoBehaviour
     {
         while (juegoActivo)
         {
-            // 1. Elegimos un topo aleatorio (Nota: Random.Range para enteros es exclusivo en el máximo, de esta forma incluye el último)
             int indexRandom = Random.Range(0, topos.Count);
-
-            // 2. Lo pintamos de rojo
             topos[indexRandom].ChangeColor(Color.red);
-
-            // 3. Esperamos 3 segundos con el topo activo
             yield return new WaitForSeconds(3f);
-
-            // 4. Lo devolvemos a su color original (Blanco)
-            topos[indexRandom].ChangeColor(Color.white);
-
-            // 5. Opcional: Esperamos un pequeño tiempo muerto (ej. 1 segundo) antes de que salga el siguiente topo
+            if (!topos[indexRandom].GetColor().Equals(Color.green))
+            {
+                topos[indexRandom].ChangeColor(Color.black);
+            }
             yield return new WaitForSeconds(1f);
+            topos[indexRandom].ChangeColor(Color.white);
         }
     }
 }

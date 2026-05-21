@@ -94,4 +94,8 @@ public sealed class Cube : MonoBehaviour
         // Actualizamos la variable local inmediatamente para el siguiente frame
         currentColor = color;
     }
+    internal Color GetColor()
+    {
+        return currentColor;
+    }
 }
