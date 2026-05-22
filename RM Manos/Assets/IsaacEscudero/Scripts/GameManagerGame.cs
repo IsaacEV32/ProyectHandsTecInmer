@@ -17,6 +17,7 @@ public class GameManagerGame : MonoBehaviour
     [SerializeField] TMP_Text textForScore;
     float score;
     [SerializeField] float maxScore = 100;
+    [SerializeField] float segundosDeEspera;
     public static GameManagerGame instance;
     private void Awake()
     {
@@ -80,7 +81,7 @@ public class GameManagerGame : MonoBehaviour
         {
             int indexRandom = Random.Range(0, topos.Count);
             topos[indexRandom].ChangeColor(Color.red);
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(segundosDeEspera);
             if (!topos[indexRandom].GetColor().Equals(Color.green))
             {
                 topos[indexRandom].ChangeColor(Color.black);

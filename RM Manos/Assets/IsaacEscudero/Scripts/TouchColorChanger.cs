@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Interactables;
@@ -21,6 +22,7 @@ public sealed class TouchColorChanger : MonoBehaviour
 
     private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
     private static readonly int ColorId = Shader.PropertyToID("_Color");
+    [SerializeField] TMP_Text textForConfirmation;
 
     private void Awake()
     {
@@ -50,6 +52,7 @@ public sealed class TouchColorChanger : MonoBehaviour
         Debug.Log("Hola");
         activeHoverCount++;
         SetColor(touchedColor);
+        textForConfirmation.text = "¿Quieres entrar a este nivel? Haz el gesto de apuntar con la otra mano si es que si, sino saca la mano de la bola";
     }
 
     private void OnHoverExited(HoverExitEventArgs args)
@@ -58,6 +61,7 @@ public sealed class TouchColorChanger : MonoBehaviour
 
         if (restoreWhenHandLeaves && activeHoverCount == 0)
             SetColor(initialColor);
+        textForConfirmation.text = " ";
     }
 
     private Color ReadInitialColor()

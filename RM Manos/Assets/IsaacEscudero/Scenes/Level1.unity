@@ -750,6 +750,7 @@ MonoBehaviour:
   textForTimer: {fileID: 0}
   textForScore: {fileID: 643124576}
   maxScore: 100
+  segundosDeEspera: 3
 --- !u!4 &1303051933
 Transform:
   m_ObjectHideFlags: 0
