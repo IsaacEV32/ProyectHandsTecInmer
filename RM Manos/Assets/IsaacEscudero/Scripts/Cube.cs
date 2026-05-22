@@ -50,6 +50,7 @@ public sealed class Cube : MonoBehaviour
         if (currentColor.Equals(Color.red))
         {
             SetColor(touchedColor);
+            AudioManager.instance.PlaySoundTouched();
             GameManagerGame.instance.SumScore(10);
         }
     }

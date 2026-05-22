@@ -60,6 +60,8 @@ public class GameManagerGame : MonoBehaviour
                 XROrigin player = FindFirstObjectByType<XROrigin>();
                 DontDestroyOnLoad(aRSession);
                 DontDestroyOnLoad(player);
+                AudioManager manager = FindFirstObjectByType<AudioManager>();
+                DontDestroyOnLoad(manager);
                 XRInteractionManager xRInteractionManager = FindFirstObjectByType<XRInteractionManager>();
                 DontDestroyOnLoad(xRInteractionManager);
                 SceneManager.LoadScene(0);

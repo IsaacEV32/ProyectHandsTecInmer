@@ -9,6 +9,7 @@ public class Hands : MonoBehaviour
     [SerializeField] ARSession arSession;
     [SerializeField] GameObject player;
     public static Hands instance;
+    AudioManager manager;
     private void Awake()
     {
         if (instance == null)
@@ -28,6 +29,8 @@ public class Hands : MonoBehaviour
     {
         DontDestroyOnLoad(arSession);
         DontDestroyOnLoad(player);
+        AudioManager manager = FindFirstObjectByType<AudioManager>();
+        DontDestroyOnLoad(manager);
         XRInteractionManager xRInteractionManager = FindFirstObjectByType<XRInteractionManager>();
         DontDestroyOnLoad(xRInteractionManager);
         SceneManager.LoadScene(levelIndex);
