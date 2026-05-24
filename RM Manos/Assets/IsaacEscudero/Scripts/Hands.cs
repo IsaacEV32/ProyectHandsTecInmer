@@ -1,8 +1,5 @@
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public class Hands : MonoBehaviour
 {

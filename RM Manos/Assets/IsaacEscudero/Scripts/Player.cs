@@ -1,6 +1,5 @@
 using Unity.XR.CoreUtils;
 using UnityEngine;
-using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class Player : MonoBehaviour
