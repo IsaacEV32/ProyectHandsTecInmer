@@ -38,6 +38,7 @@ public class GameManagerGame : MonoBehaviour
             topos[i].ChangeColor(Color.white);
         }
         textForScore.text = "Score: " + score + " / " + maxScore;
+        timer = MaxTime;
         StartCoroutine(CicloJuego());
     }
 
@@ -46,25 +47,21 @@ public class GameManagerGame : MonoBehaviour
     {
         if (juegoActivo)
         {
-            if (timer < MaxTime)
+            if (timer > 0)
             {
-                timer += Time.deltaTime;
+                timer -= Time.deltaTime;
+                float minutes = Mathf.FloorToInt(timer / 60);
+                float seconds = Mathf.FloorToInt(timer % 60);
+                textForTimer.text = string.Format("{0:00} : {1:00}", minutes, seconds);
             }
             else
             {
                 juegoActivo = false;
             }
-            if (score >= maxScore || timer >= MaxTime)
+            if (score >= maxScore || timer <= 0)
             {
-                ARSession aRSession = FindFirstObjectByType<ARSession>();
-                XROrigin player = FindFirstObjectByType<XROrigin>();
-                DontDestroyOnLoad(aRSession);
-                DontDestroyOnLoad(player);
-                AudioManager manager = FindFirstObjectByType<AudioManager>();
-                DontDestroyOnLoad(manager);
-                XRInteractionManager xRInteractionManager = FindFirstObjectByType<XRInteractionManager>();
-                DontDestroyOnLoad(xRInteractionManager);
-                SceneManager.LoadScene(0);
+                juegoActivo = false;
+                StartCoroutine(DelayForChangingScene());
             }
         }
     }
@@ -91,5 +88,18 @@ public class GameManagerGame : MonoBehaviour
             yield return new WaitForSeconds(1f);
             topos[indexRandom].ChangeColor(Color.white);
         }
+    }
+    IEnumerator DelayForChangingScene()
+    {
+        if (score >= maxScore)
+        {
+            textForTimer.text = "Ganaste el juego";
+        }
+        else if (timer <= 0)
+        {
+            textForTimer.text = "Perdiste el juego";
+        }
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(0);
     }
 }

@@ -1,8 +1,12 @@
+using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Player : MonoBehaviour
 {
     public static Player instance;
+    static bool isFirstTimePlayed = true;
     private void Awake()
     {
         if (instance == null)
@@ -13,16 +17,17 @@ public class Player : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (isFirstTimePlayed)
+        {
+            ARSession arSession = FindFirstObjectByType<ARSession>();
+            XROrigin player = FindFirstObjectByType<XROrigin>();
+            DontDestroyOnLoad(arSession);
+            DontDestroyOnLoad(player);
+            AudioManager manager = FindFirstObjectByType<AudioManager>();
+            DontDestroyOnLoad(manager);
+            XRInteractionManager xRInteractionManager = FindFirstObjectByType<XRInteractionManager>();
+            DontDestroyOnLoad(xRInteractionManager);
+            isFirstTimePlayed = false;
+        }
     }
 }

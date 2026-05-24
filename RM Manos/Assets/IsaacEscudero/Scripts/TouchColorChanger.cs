@@ -49,7 +49,6 @@ public sealed class TouchColorChanger : MonoBehaviour
 
     private void OnHoverEntered(HoverEnterEventArgs args)
     {
-        Debug.Log("Hola");
         activeHoverCount++;
         SetColor(touchedColor);
         textForConfirmation.text = "¿Quieres entrar a este nivel? Haz el gesto de apuntar con la otra mano si es que si, sino saca la mano de la bola";
