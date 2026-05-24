@@ -1,3 +1,4 @@
+using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.ARFoundation;
@@ -7,7 +8,6 @@ public class Hands : MonoBehaviour
 {
     int levelIndex;
     [SerializeField] ARSession arSession;
-    [SerializeField] GameObject player;
     public static Hands instance;
     AudioManager manager;
     private void Awake()
@@ -27,6 +27,8 @@ public class Hands : MonoBehaviour
     }
     public void Loghands()
     {
+        arSession = FindFirstObjectByType<ARSession>();
+        XROrigin player = FindFirstObjectByType<XROrigin>();
         DontDestroyOnLoad(arSession);
         DontDestroyOnLoad(player);
         AudioManager manager = FindFirstObjectByType<AudioManager>();
