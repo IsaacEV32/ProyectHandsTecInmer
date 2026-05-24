@@ -1,11 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.Interaction.Toolkit;
 public class GameManagerGame : MonoBehaviour
 {
     [SerializeField] List<Cube> topos = new List<Cube>();
